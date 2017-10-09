@@ -6,8 +6,8 @@ support [Autonomous System Numbers](https://en.wikipedia.org/wiki/Autonomous_sys
 After cloning this repo, build as usual: `./configure`, `make`, `make install`. 
 (Got [compiler errors](#libresolv)?)
 
-Or, you can apply the *:TODO: make patch branch and link to patch* patch to an 
-existing source tree and compile. 
+Or, you can apply the [patch](https://raw.githubusercontent.com/parseword/darkstat-with-asn/master/patch.txt) to 
+an existing source tree and compile. 
 
 To enable ASN support, use the new `--with-asn` command line option. darkstat 
 will query the [Team Cymru IP to ASN DNS service](http://www.team-cymru.org/IP-ASN-mapping.html#dns) to 
@@ -44,8 +44,8 @@ The following files are new (italic) or modified from the original source:
 * hosts_db.h
 * opt.h
 
-The changes are also available as a *:TODO: make a patch and link to it* 
-patch.
+You can review the [patch](https://raw.githubusercontent.com/parseword/darkstat-with-asn/master/patch.txt) to 
+see what's changed.
 
 ### Caveats
 
