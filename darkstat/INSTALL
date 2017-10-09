@@ -1,0 +1,52 @@
+Installation instructions
+-------------------------
+
+$ ./configure
+$ make
+$ make install
+
+
+Quickstart
+----------
+
+$ darkstat -i eth0
+
+
+Slightly slower start
+---------------------
+
+$ man darkstat
+
+
+Packaging
+---------
+
+The install target respects DESTDIR.  If you are packaging darkstat or
+installing into a chroot, you can:
+
+$ make install DESTDIR=/chroot/whatever
+
+
+Portability
+-----------
+
+I, the darkstat maintainer, mostly develop darkstat on Debian GNU/Linux, but
+mostly run darkstat on FreeBSD.
+
+darkstat usually builds out-of-the-box on FreeBSD, although you should probably
+install it from ports.
+
+In the past, darkstat has also been reported to work on:
+
+ - Solaris (with Sun C 5.8, and libpcap installed)
+ - Fedora Core (with libpcap-devel installed)
+ - OpenBSD
+ - NetBSD
+ - Mac OS X
+ - AIX
+ - Ubuntu (you need build-essential, zlib1g-dev, libpcap-dev)
+ - Mandrake
+ - OpenSUSE
+
+Sadly, darkstat doesn't run on GNU/Hurd 0.3 because the BPF there doesn't
+support non-blocking operation (FIONBIO).
