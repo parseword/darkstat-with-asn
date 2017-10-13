@@ -19,7 +19,8 @@ the host detail pages.
 
 In order to reduce DNS query load, an effort is made to skip AS Number lookups 
 for IP addresses in certain reserved ranges (RFC1918, multicast, etc.). IPv6 
-hosts are also skipped for the time being.
+hosts are also skipped for the time being. The ASN column will display "(none)" 
+or "(unsupported)" for these hosts.
 
 ASN support adds a second child thread to darkstat, mirroring the behavior of 
 the main DNS resolution thread. In testing, there was no noticeable additional 
@@ -36,7 +37,8 @@ The following files are new (italic) or modified from the original source:
 * Makefile.in
 * *asn.c*
 * *asn.h*
-* :TODO: configure.ac
+* configure
+* configure.ac
 * darkstat.8.in
 * darkstat.c
 * dns.c
@@ -59,8 +61,8 @@ Querying for DNS TXT resource records uses several functions from the resolver
 library. Modern unix-based operating systems support these functions either 
 natively or through libresolv.
 
-Linux users will need to link against libresolv. If you receive errors like 
-this when compiling,
+Linux users will need to link against libresolv. I've tried to make the configure 
+script detect this automatically. If you receive errors like this when compiling,
 
     asn.o: In function `ip4_lookup_asn':
     asn.c:420: undefined reference to `__res_nquery'
@@ -83,9 +85,6 @@ valid data, this is likely due to a Google rate limit. Consider using your
 ISP's DNS servers or running one of your own.
 
 ### TODO
-
-* Figure out enough of Autoconf to have the generated Makefile automatically 
-link against libresolv when the target system requires it.
 
 * Support IPv6 addresses.
 

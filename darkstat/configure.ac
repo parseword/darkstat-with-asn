@@ -207,5 +207,11 @@ AC_CHECK_HEADERS(bsd/unistd.h)
 
 AC_SEARCH_LIBS(clock_gettime, rt)
 
+# Look for res_nquery(). On Linux systems, this should be found in libresolv.
+# On FreeBSD, it's contained in libc and no external library is needed.
+AC_SEARCH_LIBS([__res_nquery], [resolv], [], [
+  AC_MSG_ERROR([unable to find the __res_nquery() function, is libresolv installed?])
+])
+
 AC_CONFIG_FILES([Makefile darkstat.8])
 AC_OUTPUT

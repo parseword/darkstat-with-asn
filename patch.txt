@@ -559,6 +559,94 @@ diff -Naur --exclude=.svn --exclude=.git --exclude=README.md darkstat-3.0.719-di
 +void asn_poll(void);
 +
 +/* vim:set ts=3 sw=3 tw=78 expandtab: */
+diff -Naur --exclude=.svn --exclude=.git --exclude=README.md darkstat-3.0.719-dist/configure darkstat-with-asn/darkstat/configure
+--- darkstat-3.0.719-dist/configure	2015-05-24 02:40:25.000000000 -0500
++++ darkstat-with-asn/darkstat/configure	2017-10-13 13:18:46.999236644 -0500
+@@ -4244,6 +4244,69 @@
+ fi
+ 
+ 
++# Look for res_nquery(). On Linux systems, this should be found in libresolv.
++# On FreeBSD, it's contained in libc and no external library is needed.
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing __res_nquery" >&5
++$as_echo_n "checking for library containing __res_nquery... " >&6; }
++if ${ac_cv_search___res_nquery+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  ac_func_search_save_LIBS=$LIBS
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++/* Override any GCC internal prototype to avoid an error.
++   Use char because int might match the return type of a GCC
++   builtin and then its argument prototype would still apply.  */
++#ifdef __cplusplus
++extern "C"
++#endif
++char __res_nquery ();
++int
++main ()
++{
++return __res_nquery ();
++  ;
++  return 0;
++}
++_ACEOF
++for ac_lib in '' resolv; do
++  if test -z "$ac_lib"; then
++    ac_res="none required"
++  else
++    ac_res=-l$ac_lib
++    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
++  fi
++  if ac_fn_c_try_link "$LINENO"; then :
++  ac_cv_search___res_nquery=$ac_res
++fi
++rm -f core conftest.err conftest.$ac_objext \
++    conftest$ac_exeext
++  if ${ac_cv_search___res_nquery+:} false; then :
++  break
++fi
++done
++if ${ac_cv_search___res_nquery+:} false; then :
++
++else
++  ac_cv_search___res_nquery=no
++fi
++rm conftest.$ac_ext
++LIBS=$ac_func_search_save_LIBS
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search___res_nquery" >&5
++$as_echo "$ac_cv_search___res_nquery" >&6; }
++ac_res=$ac_cv_search___res_nquery
++if test "$ac_res" != no; then :
++  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
++
++else
++
++  as_fn_error $? "unable to find the __res_nquery() function, is libresolv installed?" "$LINENO" 5
++
++fi
++
++
+ ac_config_files="$ac_config_files Makefile darkstat.8"
+ 
+ cat >confcache <<\_ACEOF
+diff -Naur --exclude=.svn --exclude=.git --exclude=README.md darkstat-3.0.719-dist/configure.ac darkstat-with-asn/darkstat/configure.ac
+--- darkstat-3.0.719-dist/configure.ac	2015-05-24 02:40:25.000000000 -0500
++++ darkstat-with-asn/darkstat/configure.ac	2017-10-13 13:14:38.814620080 -0500
+@@ -207,5 +207,11 @@
+ 
+ AC_SEARCH_LIBS(clock_gettime, rt)
+ 
++# Look for res_nquery(). On Linux systems, this should be found in libresolv.
++# On FreeBSD, it's contained in libc and no external library is needed.
++AC_SEARCH_LIBS([__res_nquery], [resolv], [], [
++  AC_MSG_ERROR([unable to find the __res_nquery() function, is libresolv installed?])
++])
++
+ AC_CONFIG_FILES([Makefile darkstat.8])
+ AC_OUTPUT
 diff -Naur --exclude=.svn --exclude=.git --exclude=README.md darkstat-3.0.719-dist/darkstat.8.in darkstat-with-asn/darkstat/darkstat.8.in
 --- darkstat-3.0.719-dist/darkstat.8.in	2015-05-24 02:40:25.000000000 -0500
 +++ darkstat-with-asn/darkstat/darkstat.8.in	2017-10-09 10:48:30.448653760 -0500
