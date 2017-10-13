@@ -70,7 +70,7 @@ this when compiling,
     collect2: ld returned 1 exit status
     make: *** [darkstat] Error 1
 
-...open the Makefile and append `-lresolv` to the `LDFLAGS = ` line, then 
+...open the Makefile and append `-lresolv` to the `LIBS = ` line, then 
 recompile.
 
 #### Google's name servers (8.8.8.8, 8.8.4.4)
